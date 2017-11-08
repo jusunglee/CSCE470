@@ -1,0 +1,13 @@
+proportion of explicit songs, 
+# avg popularity, 
+avg energy, 
+avg liveness, 
+avg tempo, 
+avg speechiness, 
+avg acousticness, 
+avg instrumentalness
+# avg time_signature
+avg danceability
+# avg duration_ms
+avg loudness
+avg valence
