@@ -58,17 +58,23 @@ def test_classifier(user):
     global X
 
     for playlist in spotify_api.user_playlists(user)['items']:
-        if playlist['name'] != 'Stefan Music':
-            continue
-
         feature_vec = [playlist['id'], playlist['name'], playlist[
             'uri'], user, gen.process(user, playlist['id'])]
-        dist, ind = classifier.query([feature_vec[4]], k=3)
+        dist, ind = classifier.query([feature_vec[4]], k=5)
 
         print 'Recommend for:', json.dumps(feature_vec)
         for i in range(len(ind[0])):
             print '\t', dist[0][i], ":", json.dumps(X[ind[0][i]])
         print ''
+
+
+def test_api(user='habeebmh'):
+    global spotify_api
+
+    for playlist in spotify_api.user_playlists(user)['items']:
+        feature_vec = gen.process(user, playlist['id'])
+        print feature_vec
+
 
 if __name__ == '__main__':
     client_credentials_manager = SpotifyClientCredentials(
@@ -81,5 +87,6 @@ if __name__ == '__main__':
 
     get_training_data([u.strip() for u in open('users.txt', 'r') if (
         not u.startswith('#')) and (not u == '')])
-    train_classfier()
-    test_classifier('habeebmh')
+    # train_classfier()
+    # test_classifier('habeebmh')
+    # test_api()

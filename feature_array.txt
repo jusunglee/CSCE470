@@ -1,4 +1,5 @@
 proportion of explicit songs, 
+genre,
 # avg popularity, 
 avg energy, 
 avg liveness, 
