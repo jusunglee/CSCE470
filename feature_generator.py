@@ -57,10 +57,9 @@ class FeatureGenerator():
         # print t['name'], r
         return [numpy.nan if x is None else x for x in r]
 
-    def process(self, user, playlist):
+    def process(self, user, p):
         results = []
 
-        p = self.spotify_api.user_playlist(user, playlist)
         track_features = [self.track_features(track['track'])
                   for track in p['tracks']['items']]
 

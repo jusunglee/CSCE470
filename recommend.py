@@ -6,6 +6,7 @@ import json
 from requests.exceptions import ConnectionError
 from spotipy.client import SpotifyException
 import numpy
+from pprint import pprint
 
 CLIENT_ID = 'c96d60fcd9904999a60b35b17ab7491c'
 CLIENT_SECRET = 'ff13291c8d2b43719726d54d1a3a7b25'
@@ -27,10 +28,10 @@ def get_training_data(users):
                         continue
 
                     try:
-                        f.write(json.dumps([playlist['id'], playlist['name'], playlist['uri'], user,
-                                            gen.process(user, playlist['id'])]))
+                        p = spotify_api.user_playlist(user, playlist['id'])
+                        f.write(json.dumps([p['id'], p['name'], p['uri'], user, gen.process(user, p)]))
                         f.write('\n')
-                        done_playlists.add(playlist['id'])
+                        done_playlists.add(p['id'])
                     except KeyboardInterrupt:
                         exit()
                     except:
@@ -59,7 +60,7 @@ def test_classifier(user):
 
     for playlist in spotify_api.user_playlists(user)['items']:
         feature_vec = [playlist['id'], playlist['name'], playlist[
-            'uri'], user, gen.process(user, playlist['id'])]
+            'uri'], user, gen.process(user, playlist)]
         dist, ind = classifier.query([feature_vec[4]], k=5)
 
         print 'Recommend for:', json.dumps(feature_vec)
@@ -68,11 +69,31 @@ def test_classifier(user):
         print ''
 
 
+def test_classifier_song(song):
+    global spotify_api
+    global classifier
+    global gen
+    global X
+
+    p = {'tracks': {'items': [
+        {}
+    ]}}
+
+    feature_vec = [0, None, None, None, gen.process(user, p)]
+    dist, ind = classifier.query([feature_vec[4]], k=5)
+
+    print 'Recommend for:', json.dumps(feature_vec)
+    for i in range(len(ind[0])):
+        print '\t', dist[0][i], ":", json.dumps(X[ind[0][i]])
+    print ''
+
+
 def test_api(user='habeebmh'):
     global spotify_api
 
     for playlist in spotify_api.user_playlists(user)['items']:
-        feature_vec = gen.process(user, playlist['id'])
+        p = spotify_api.user_playlist(user, playlist['id'])
+        feature_vec = gen.process(user, p)
         print feature_vec
 
 
@@ -85,8 +106,7 @@ if __name__ == '__main__':
     classifier = None
     X = None
 
-    get_training_data([u.strip() for u in open('users.txt', 'r') if (
-        not u.startswith('#')) and (not u == '')])
+    get_training_data([u.strip() for u in open('users.txt', 'r') if (not u.startswith('#')) and (not u == '')])
     # train_classfier()
     # test_classifier('habeebmh')
     # test_api()
