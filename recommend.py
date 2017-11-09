@@ -20,28 +20,16 @@ def get_training_data(users):
 
     with open('training.data', 'a') as f:
         for user in users:
-            try:
-                for playlist in spotify_api.user_playlists(user)['items']:
-                    print user, '\t', playlist['name'], '\t', playlist['id']
+            for playlist in spotify_api.user_playlists(user)['items']:
+                print user, '\t', playlist['name'], '\t', playlist['id']
 
-                    if playlist['id'] in done_playlists:
-                        continue
+                if playlist['id'] in done_playlists:
+                    continue
 
-                    try:
-                        p = spotify_api.user_playlist(user, playlist['id'])
-                        f.write(json.dumps([p['id'], p['name'], p['uri'], user, gen.process(user, p)]))
-                        f.write('\n')
-                        done_playlists.add(p['id'])
-                    except KeyboardInterrupt:
-                        exit()
-                    except:
-                        print 'Error Occurred!!!'
-                        continue
-            except KeyboardInterrupt:
-                exit()
-            except:
-                print 'Error Occurred!!!'
-                continue
+                p = spotify_api.user_playlist(user, playlist['id'])
+                f.write(json.dumps([p['id'], p['name'], p['uri'], user, gen.process(user, p)]))
+                f.write('\n')
+                done_playlists.add(p['id'])
 
 
 def train_classfier():

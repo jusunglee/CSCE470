@@ -31,13 +31,29 @@ class FeatureGenerator():
         artist_ids = [a['id'] for a in t['artists']]
         genres = []
         for uid in artist_ids:
-            genres.extend(self.spotify_api.artist(uid)['genres'])
+            try:
+                genres.extend(self.spotify_api.artist(uid)['genres'])
+            except:
+                continue
         return genres
 
-
     def track_features(self, t):
-        audio_features = self.spotify_api.audio_features(
-            'spotify:track:{}'.format(t['id']))[0]
+        audio_features = None
+        try:
+            audio_features = self.spotify_api.audio_features(
+                'spotify:track:{}'.format(t['id']))[0]
+        except:
+            audio_features = {
+                'energy': numpy.nan,
+                'liveness': numpy.nan,
+                'tempo': numpy.nan,
+                'speechiness': numpy.nan,
+                'acousticness': numpy.nan,
+                'instrumentalness': numpy.nan,
+                'danceability': numpy.nan,
+                'loudness': numpy.nan,
+                'valence': numpy.nan
+            }
 
         r = [
             1 if t['explicit'] == True else 0,
@@ -54,14 +70,14 @@ class FeatureGenerator():
             audio_features['loudness'],
             audio_features['valence']
         ]
-        # print t['name'], r
+
         return [numpy.nan if x is None else x for x in r]
 
     def process(self, user, p):
         results = []
 
-        track_features = [self.track_features(track['track'])
-                  for track in p['tracks']['items']]
+        track_features = [n for n in [self.track_features(track['track']) for track in p[
+            'tracks']['items']] if n is not None]
 
         genres = {}
         for track in p['tracks']['items']:
