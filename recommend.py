@@ -47,13 +47,14 @@ def test_classifier(user):
     global X
 
     for playlist in spotify_api.user_playlists(user)['items']:
-        feature_vec = [playlist['id'], playlist['name'], playlist[
-            'uri'], user, gen.process(user, playlist)]
-        dist, ind = classifier.query([feature_vec[4]], k=5)
+        p = spotify_api.user_playlist(user, playlist['id'])
+        feature_vec = [p['id'], p['name'], p['uri'], user, gen.process(user, p)]
+        dist, ind = classifier.query([feature_vec[4]], k=10)
 
         print 'Recommend for:', json.dumps(feature_vec)
         for i in range(len(ind[0])):
-            print '\t', dist[0][i], ":", json.dumps(X[ind[0][i]])
+            if dist[0][i] > 0.005:
+                print '\t', dist[0][i], ":", json.dumps(X[ind[0][i]])
         print ''
 
 
@@ -94,7 +95,12 @@ if __name__ == '__main__':
     classifier = None
     X = None
 
-    get_training_data([u.strip() for u in open('users.txt', 'r') if (not u.startswith('#')) and (not u == '')])
-    # train_classfier()
-    # test_classifier('habeebmh')
+    genres = {}
+    for line in open('genre_list.txt'):
+        kvp = line.strip().split(',')
+        genres[kvp[0]] = kvp[1]
+
+    # get_training_data([u.strip() for u in open('users.txt', 'r') if (not u.startswith('#')) and (not u == '')])
+    train_classfier()
+    test_classifier('habeebmh')
     # test_api()

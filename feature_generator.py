@@ -73,7 +73,7 @@ class FeatureGenerator():
 
         return [numpy.nan if x is None else x for x in r]
 
-    def process(self, user, p):
+    def process(self, p):
         results = []
 
         track_features = [n for n in [self.track_features(track['track']) for track in p[
@@ -91,6 +91,6 @@ class FeatureGenerator():
         genre = max(genres.iteritems(), key=lambda x: x[1])[0]
 
         results.extend(track_feature)
-        results.append(self.genres[genre])
+        results.append(float(self.genres[genre]))
 
         return results
