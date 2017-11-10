@@ -1,4 +1,4 @@
-# CSCE470
+# Splaylist
 
 Recommends Spotify playlists using these features:
 * Proportion of explicit songs in playlist
