@@ -16,9 +16,9 @@ def get_training_data(users):
     global spotify_api
     global gen
 
-    done_playlists = set(json.loads(p)[0] for p in open('training.data', 'r'))
+    done_playlists = set(json.loads(p)[0] for p in open('../training.data', 'r'))
 
-    with open('training.data', 'a') as f:
+    with open('../training.data', 'a') as f:
         for user in users:
             for playlist in spotify_api.user_playlists(user)['items']:
                 print user, '\t', playlist['name'], '\t', playlist['id']
@@ -36,7 +36,7 @@ def train_classfier():
     global classifier
     global X
 
-    X = [json.loads(d.strip()) for d in open('training.data', 'r')]
+    X = [json.loads(d.strip()) for d in open('../training.data', 'r')]
     classifier = BallTree([x[4] for x in X])
 
 
@@ -95,12 +95,7 @@ if __name__ == '__main__':
     classifier = None
     X = None
 
-    genres = {}
-    for line in open('genre_list.txt'):
-        kvp = line.strip().split(',')
-        genres[kvp[0]] = kvp[1]
-
-    # get_training_data([u.strip() for u in open('users.txt', 'r') if (not u.startswith('#')) and (not u == '')])
+    # get_training_data([u.strip() for u in open('../func_files/users.txt', 'r') if (not u.startswith('#')) and (not u == '')])
     train_classfier()
     test_classifier('habeebmh')
     # test_api()

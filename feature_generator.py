@@ -23,7 +23,7 @@ class FeatureGenerator():
                 'A Spotipy API instance or Credentials must be specified.')
 
         self.genres = {}
-        for line in open('genre_list.txt'):
+        for line in open('./func_files/genre_list.txt'):
             kvp = line.strip().split(',')
             self.genres[kvp[1]] = kvp[0]
 
