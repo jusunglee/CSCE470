@@ -23,6 +23,13 @@ Recommends Spotify playlists using these features:
 * Scikit
 * Requests
 * Numpy
+* Scipy
+
+You can install all of these with:
+
+```bash
+$ pip2 install spotipy sklearn requests numpy scipy
+```
 
 ##### From the command line
 
