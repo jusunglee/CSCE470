@@ -1,4 +1,6 @@
+
 $(document).ready(function () {
+    
     // event listener for the search button
     $("#search-button").click(function () {
         $("#search-results-container").empty();
@@ -10,10 +12,11 @@ $(document).ready(function () {
     });
 
     $("#add-button").click(function () { // process playlist button
-        var playlistUri;
+        var list = [];
         $("div[clicked='true']").val(function () {
-            playlistUri = $(this).attr('uri');
+            list.push($(this).attr('uri'));
         });
+        var playlistUri = list[0];
         // IMPLEMENT LOADING BAR OR WHATEVER HERE
         $.get( "process/playlist/" + playlistUri, function( results ) {
             // CANCEL LOADING BAR HERE BECAUSE IM ABOUT TO DISPLAY ALL THE RESULTS
