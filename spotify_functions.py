@@ -57,34 +57,7 @@ def load_spotipy_object(config):
     return sp
 
 
-def get_tracks_from_string_query(sp, string_query):
-    """Searches for spotify songs.
 
-    Retrieves raw results of a string query for a track and returns it.
-
-    Args:
-        sp: spotipy.Spotify() object preconfigured for auth.
-        string_query: string query to search spotify for song names
-
-    Returns:
-        An array of JSON objects
-    """
-    results = sp.search(string_query)['tracks']['items']
-    return_list = []
-    for result in results:
-        return_list.append({
-            'song_id': result['id'],
-            'song_name': result['name'],
-            'artist_name': result['album']['artists'][0]['name'],
-            'artist_id': result['album']['artists'][0]['id'],
-            'song_uri': result['uri']
-        })
-    return return_list
-
-
-def search_for_playlists(sp, string_query):
-    results = sp.search(string_query, type='playlist')
-    return results
 
 
 def add_track_to_playlist(username,track_id,playlist_id):

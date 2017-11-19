@@ -2,7 +2,6 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import jsonify
-import spotify_functions as sf
 import magical_object
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
@@ -21,15 +20,14 @@ def searchplaylists():
 @app.route('/track/')
 @app.route('/track/<string_query>')
 def get_search_track(string_query=None):
-    sp = sf.load_spotipy_object(sf.load_keys())
-    return jsonify(sf.get_tracks_from_string_query(sp, string_query))
+    results = unicorn.search_for_tracks(string_query)
+    return jsonify(results)
 
 
 @app.route('/playlist/')
 @app.route('/playlist/<string_query>')
 def search_for_playlist(string_query=None):
-    sp = sf.load_spotipy_object(sf.load_keys())
-    results = sf.search_for_playlists(sp, string_query)
+    results = unicorn.search_for_playlists(string_query)
     return jsonify(results)
 
 
@@ -43,6 +41,7 @@ def process_playlist(playlist_uri=None):
 def process_track(track_uri=None):
     results = unicorn.classify_song(track_uri)
     return jsonify(results)
+
 
 if __name__ == '__main__':
     unicorn = magical_object.magicalObject() # global var
