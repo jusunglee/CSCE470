@@ -1,13 +1,28 @@
-<html>
-  <head>
-    <title>{{ data['title'] }} - microblog</title>
-  </head>
-  <body>
-      <h1>Hello, {{ data['user'].name }}!</h1>
-      {%  if data['user'].company == 'microsoft' %}
-      <h2>You work for microsoft</h2>
-      {% else  %}
-      <h3>you don't work at microsoft</h3>
-      {% endif %}
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script
+    src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='scripts/playlistHandler.js') }}"></script>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/dashboard.css') }}">
+    <meta charset="UTF-8">
+    <title>Splaylist</title>
+</head>
+<body>
+<div class="container">
+    <h1>Welcome to Splaylist!</h1>
+    <h3>Get recommended playlists by other Spotify users based on your preferences!</h3>
+    <p>Search by track or search by playlist.</p>
+    <div>
+        <a class="btn" id="add-button" href="/searchplaylists">PLAYLIST</a>
+        <a class="btn" id="search-button" href="/searchtracks">TRACK</a>
+    </div>
+</div>
+
+</body>
 </html>

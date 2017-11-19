@@ -2,3 +2,4 @@ data/*
 .vscode/*
 *.pyc
 client_data.txt
+.idea/*
