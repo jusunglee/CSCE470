@@ -30,7 +30,6 @@ def get_search_track(string_query=None):
 def search_for_playlist(string_query=None):
     sp = sf.load_spotipy_object(sf.load_keys())
     results = sf.search_for_playlists(sp, string_query)
-    print(results)
     return jsonify(results)
 
 
@@ -45,8 +44,6 @@ def process_track(track_uri=None):
     results = unicorn.classify_song(track_uri)
     return jsonify(results)
 
-
-app.run(use_reloader=True)
-unicorn = magical_object.magicalObject() # global var
-    
-    
+if __name__ == '__main__':
+    unicorn = magical_object.magicalObject() # global var
+    app.run(use_reloader=True)

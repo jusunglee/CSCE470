@@ -10,10 +10,12 @@ $(document).ready(function () {
     });
 
     $("#add-button").click(function () { // process playlist button
-        var trackUri;
+        var list = [];
+        console.log($("div[clicked='true']"));
         $("div[clicked='true']").val(function () {
-            tracklistUri = $(this).attr('uri');
+            list.push($(this).attr('uri'));
         });
+        var trackUri = list[0];
         // IMPLEMENT LOADING BAR OR WHATEVER HERE
         $.get( "process/track/" + trackUri, function( results ) {
             // CANCEL LOADING BAR HERE BECAUSE IM ABOUT TO DISPLAY ALL THE RESULTS
@@ -27,8 +29,8 @@ displaySearchResults = function (searchResults) {
         var track = searchResults[i];
         var trackName = track['song_name'];
         var artistName = track['artist_name'];
-        var songId = track['song_id'];
-        var $resultItemDiv = $("<div>", { id: "search-result-" + i, "class": "search-result-item", "clicked": "false", "song_id": songId });
+        var uri = track['song_uri'];
+        var $resultItemDiv = $("<div>", { id: "search-result-" + i, "class": "search-result-item", "clicked": "false", "uri": uri });
         var $trackNameItem = $("<p>", { "class": "track-name" });
         $trackNameItem.append(trackName);
         var $artistNameItem = $("<p>", { "class": "artist-name" });
