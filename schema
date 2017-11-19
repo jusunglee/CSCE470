@@ -1,0 +1,26 @@
+UserTable Schema:
+
+
+"UserTable":{
+    UID:{
+        "Method": "Google"/"Facebook",
+        "Token": Login token associated with login method
+        "playlists": PlaylistIDS as semicolon seperated string
+    }
+    ...
+}
+
+PlaylistTable Schema:
+
+"Playlists":{
+    PlaylistID:{
+        "Name": Playlist Name,
+        "Owner": Owner UID,
+        "Active": True/False,
+        "Songs": SongIDS as semicolon seperated string oldest to newest,
+        "Blacklist": Blacklisted UserIDS,
+        "History": Unix Timestamped dict of users to time last posted,
+        "Auth": Spotify User Access Auth Token,
+    },
+    ...
+}

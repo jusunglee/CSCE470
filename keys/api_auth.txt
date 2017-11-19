@@ -1,0 +1,4 @@
+apiKey = AIzaSyCG5371lAsnsLMTtcSV5IirInICeuLOZDM,
+authDomain = spotipool-ff2b7.firebaseapp.com,
+databaseURL = https://spotipool-ff2b7.firebaseio.com,
+storageBucket = spotipool-ff2b7.appspot.com
