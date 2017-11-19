@@ -49,3 +49,21 @@ class magicalObject:
         for i in range(len(ind[0])):
             results.append(json.dumps(self.X[ind[0][i]]))
         return results
+
+    def search_for_tracks(self, string_query):
+        results = self.spotify_api.search(string_query)['tracks']['items']
+        return_list = []
+        for result in results:
+            return_list.append({
+                'song_id': result['id'],
+                'song_name': result['name'],
+                'artist_name': result['album']['artists'][0]['name'],
+                'artist_id': result['album']['artists'][0]['id'],
+                'song_uri': result['uri']
+            })
+        return return_list
+
+
+    def search_for_playlists(self, string_query):
+        results = self.spotify_api.search(string_query, type='playlist')
+        return results
