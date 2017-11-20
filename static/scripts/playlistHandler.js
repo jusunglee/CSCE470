@@ -20,9 +20,11 @@ $(document).ready(function () {
         var playlistUri = list[0];
         // IMPLEMENT LOADING BAR OR WHATEVER HERE
         $("#loading").show();
+        $("#search-results-container").hide();
         $.get( "process/playlist/" + playlistUri, function( results ) {
             $("#loading").hide();
-            consle.log(results);
+            console.log(results);
+            $("#search-results-container").show();
         });
     });
 });

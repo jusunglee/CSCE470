@@ -21,7 +21,7 @@
     <a class="btn" id="search-button">SEARCH</a>
     <a class="btn" disabled=true id="add-button">PROCESS SONG</a>
     <div id="loading">
-        <img src="{{ url_for('static', filename='img/spinner.gif') }}">
+        <img id="loading-spinner" src="{{ url_for('static', filename='img/spinner.gif') }}">
     </div>
     <div num-selected-tracks="0" id="search-results-container"></div>
 </div>
