@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    $("#loading").hide();
+
     // event listener for the search button
     $("#search-button").click(function () {
         $("#search-results-container").empty();
@@ -17,9 +19,13 @@ $(document).ready(function () {
         });
         var trackUri = list[0];
         // IMPLEMENT LOADING BAR OR WHATEVER HERE
+        $("#loading").show();
+        $("#search-results-container").hide();
         $.get( "process/track/" + trackUri, function( results ) {
             // CANCEL LOADING BAR HERE BECAUSE IM ABOUT TO DISPLAY ALL THE RESULTS
+            $("#loading").hide();
             console.log(results);
+            $("#search-results-container").show();
         });
     });
 });

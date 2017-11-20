@@ -88,7 +88,15 @@ class FeatureGenerator():
                     genres[g] = 1
 
         track_feature = numpy.nanmean(track_features, axis=0)
-        genre = max(genres.iteritems(), key=lambda x: x[1])[0]
+
+        genre = None
+        while len(genres):
+            test_genre = max(genres.iteritems(), key=lambda x : x[1])
+            if test_genre[0] in self.genres:
+                genre = test_genre[0]
+                break
+            genres.pop(test_genre[0])
+        #print genre
 
         results.extend(track_feature)
         results.append(float(self.genres[genre]))

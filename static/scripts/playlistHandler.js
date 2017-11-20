@@ -1,5 +1,6 @@
 
 $(document).ready(function () {
+    $("#loading").hide();
     
     // event listener for the search button
     $("#search-button").click(function () {
@@ -18,9 +19,10 @@ $(document).ready(function () {
         });
         var playlistUri = list[0];
         // IMPLEMENT LOADING BAR OR WHATEVER HERE
+        $("#loading").show();
         $.get( "process/playlist/" + playlistUri, function( results ) {
-            // CANCEL LOADING BAR HERE BECAUSE IM ABOUT TO DISPLAY ALL THE RESULTS
-            console.log(results);
+            $("#loading").hide();
+            consle.log(results);
         });
     });
 });
