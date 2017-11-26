@@ -4,14 +4,11 @@ body {
 
 #loading{
     display: block;
-    margin: 25px 0 25px 0;
-    padding: 25px 0 25px 0;
     text-align: center;
 }
 
 #loading-spinner{
-    width: 100px;
-    height: 100px;
+    margin-top: 50px;
 }
 
 #search-bar {
