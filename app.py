@@ -38,6 +38,7 @@ def search_for_playlist(string_query=None):
 @app.route('/process/playlist/<playlist_uri>')
 def process_playlist(playlist_uri=None):
     results = unicorn.classify_playlist(playlist_uri)
+    print results
     return jsonify(results)
 
 

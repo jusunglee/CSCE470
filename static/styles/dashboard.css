@@ -121,3 +121,9 @@ body {
   background-image: linear-gradient(to bottom, #5e45ef, #513bd3);
   text-decoration: none;
 }
+
+.spotify-img {
+    height: 25px;
+    margin-left: 10px;
+    width: 25px;
+}

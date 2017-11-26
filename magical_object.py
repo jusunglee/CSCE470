@@ -24,6 +24,26 @@ class magicalObject:
         print('Training complete.')
 
 
+    def add_track_info_to_results(self, results):
+        for i, arr in enumerate(results):
+            username = arr[3]
+            playlist_id = arr[0]
+            playlist_search = self.spotify_api.user_playlist(username, playlist_id)
+            playlist_url = playlist_search['external_urls']['spotify']
+            ps = playlist_search['tracks']['items']
+            arr.append(playlist_url)
+            sub_list = []
+            for item in ps:
+                track_name = item['track']['name']
+                artist_name = item['track']['artists'][0]['name']
+                track_url = item['track']['external_urls']['spotify']
+                sub_list.append([track_name, artist_name, track_url])
+            arr.append(sub_list)
+            results[i] = json.dumps(arr)
+        # return results
+            
+
+
     def classify_playlist(self, playlist_uri):
         parts = playlist_uri.split(':')
         user = parts[2]
@@ -33,7 +53,8 @@ class magicalObject:
         dist, ind = self.classifier.query([feature_vec[4]], k=5)
         results = []
         for i in range(len(ind[0])):
-            results.append(json.dumps(self.X[ind[0][i]]))
+            results.append(self.X[ind[0][i]])
+        self.add_track_info_to_results(results)
         return results
 
 
@@ -47,8 +68,10 @@ class magicalObject:
         dist, ind = self.classifier.query([feature_vec[4]], k=5)
         results = []
         for i in range(len(ind[0])):
-            results.append(json.dumps(self.X[ind[0][i]]))
+            results.append(self.X[ind[0][i]])
+        self.add_track_info_to_results(results)
         return results
+
 
     def search_for_tracks(self, string_query):
         results = self.spotify_api.search(string_query)['tracks']['items']
@@ -67,3 +90,4 @@ class magicalObject:
     def search_for_playlists(self, string_query):
         results = self.spotify_api.search(string_query, type='playlist')
         return results
+
