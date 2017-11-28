@@ -2,7 +2,7 @@ $(document).ready(function () {
     $("#loading").hide();
     // event listener for the search button
     $("#search-button").click(function () {
-        document.getElementById("loading-spinner").src = "http://127.0.0.1:5000/static/img/spinner" + Math.floor(Math.random() * 10) + ".gif";
+        document.getElementById("loading-spinner").src = "/static/img/spinner" + Math.floor(Math.random() * 10) + ".gif";
         $("#add-button").removeAttr('disabled');
         $("#search-results-container").empty();
         var query = $("#search-bar").val()

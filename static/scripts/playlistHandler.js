@@ -1,21 +1,10 @@
 
 $(document).ready(function () {
     $("#loading").hide();
-    LOADING_ARR = [
-        "https://i.imgur.com/BlyO5Iy.gif",
-        "https://i.imgur.com/Oz5pb8R.gif",
-        "https://i.imgur.com/DNzGnh1.gif",
-        "https://i.imgur.com/2MFOVUb.gif",
-        "https://i.imgur.com/j428yKq.gif",
-        "https://i.imgur.com/bc98hPP.gif",
-        "https://i.imgur.com/lKa14LC.gif",
-        "https://i.imgur.com/OVN0n3i.gif",
-        "https://i.imgur.com/eNFqv9j.gif"
-    ];
     // event listener for the search button
     $("#search-button").click(function () {
         $("#search-results-container").empty();
-        document.getElementById("loading-spinner").src = "http://127.0.0.1:5000/static/img/spinner" + Math.floor(Math.random() * 10) + ".gif";
+        document.getElementById("loading-spinner").src = "/static/img/spinner" + Math.floor(Math.random() * 10) + ".gif";
         var query = $("#search-bar").val()
         var encodedQuery = encodeURI(query);
         $.get("playlist/" + encodedQuery, function (data, status) {
